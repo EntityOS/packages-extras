@@ -1,0 +1,41 @@
+# Maintainer: Risha S Chagnmai <michaelspeed.michaelcorp@live.com>
+
+pkgname=cinnamon-settings-daemon
+pkgver=2.8.4
+pkgrel=1.2
+pkgdesc="The Cinnamon Settings daemon"
+arch=('i686' 'x86_64')
+license=('GPL')
+depends=('cinnamon-desktop' 'libibus' 'libcanberra-pulse' 'librsvg' 'nss'
+         'pulseaudio-alsa' 'upower' 'libnotify' 'libgnomekbd' 'libwacom')
+makedepends=('intltool' 'docbook-xsl' 'gnome-common' 'xf86-input-wacom')
+options=('!emptydirs')
+install=cinnamon-settings-daemon.install
+url="https://github.com/linuxmint/cinnamon-settings-daemon"
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/linuxmint/cinnamon-settings-daemon/archive/${pkgver}.tar.gz")
+sha256sums=('6d29f1afcbe2724d50066e6417b0a86b8f84abcf2c717732b2ce094be303f0fc')
+_allowed_in="staging"
+prepare() {
+  cd $pkgname-$pkgver
+
+}
+
+build() {
+  cd $pkgname-$pkgver
+
+  # Support new libsystemd (which replaces libsystemd-login)
+  sed -i 's/libsystemd-login/libsystemd/' configure.ac
+
+  ./autogen.sh --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
+      --libexecdir=/usr/lib/$pkgname --disable-static --enable-systemd
+
+  #https://bugzilla.gnome.org/show_bug.cgi?id=656231
+  #sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
+}
