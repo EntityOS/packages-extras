@@ -1,0 +1,30 @@
+# Maintainer: Risha S Changmai <michaelspeed.michaelcorp@live.com>
+
+pkgname=n1
+pkgver=0.4.19
+buildver=b0ec335
+pkgrel=1
+pkgdesc="A mail client for Mac, Linux, and Windows that is built on the modern web and designed to be extended."
+arch=('x86_64')
+url="https://nylas.com/N1/"
+license=('MIT')
+depends=('gtk2' 'libgnome-keyring' 'desktop-file-utils' 'python2' 'gconf' 'nodejs'
+		'libnotify' 'libxtst' 'nss' 'alsa-lib' 'xdg-utils')
+groups=('email') 
+source=("https://github.com/nylas/N1/releases/download/${pkgver}/N1-${pkgver}.deb")
+install=${pkgname}.install
+md5sums=('6e07835b7aaa96a242af6c11cb8f1092')
+package() {
+	msg2 "Extracting data.tar.gz..."
+	bsdtar -xf data.tar.gz -C "${pkgdir}/"
+
+	cd "${pkgdir}"
+	find -name '*.py' -exec sed -i 's|^#!/usr/bin/env python\s*$|#!/usr/bin/env python2|' {} \;
+	find -name '*.py' -exec sed -i 's|^#!/usr/bin/python\s*$|#!/usr/bin/python2|' {} \;
+
+	mkdir -p "${pkgdir}"/usr/share/licenses/nylas/
+
+	rm -rf "${pkgdir}/usr/bin/nylas"
+	ln -s /usr/share/nylas/nylas "${pkgdir}"/usr/bin/nylas
+	ln -s /usr/share/nylas/LICENSE "${pkgdir}"/usr/share/licenses/nylas/LICENSE
+}
