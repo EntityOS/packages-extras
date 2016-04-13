@@ -23,7 +23,7 @@ source=("https://github.com/solus-project/budgie-desktop/releases/download/v$pkg
         "lightdm.patch")
 sha256sums=('65bc36c67e4b0a68997fcd27b4c9058031f50b1b91d4b19923bf14f6b443b154'
             'bce565b20626828cf6d12eddfad5d7284b1fd0fbb099fd57e80c151203dad3d8'
-            '88d4dfb0c9f0ffb7a48c362c065b69d5f260ce68c67f01d331f8be7e471ad35e '
+            '88d4dfb0c9f0ffb7a48c362c065b69d5f260ce68c67f01d331f8be7e471ad35e'
             '45bd2947bd728398dbd3a904435dfb4012afcc2f72e54433e336b8b2a87b5f22'
             'e200f9d607d267d5679c230f6b13756d65461b68f2bc416158d20790aa3bcc25')
 
