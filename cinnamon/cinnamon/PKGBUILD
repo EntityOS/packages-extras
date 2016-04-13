@@ -26,9 +26,9 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxmint/Cinnamon/archive/
         "default-theme.patch"
         "fix-missing-icons.patch")
 sha256sums=('33f838cb9c1d4213ebb18d5869949757dda97a6e0745f224d06be75de69caee7'
-            '4ae7ed062e2bfacabdac66002c14666c4709182d45a6f0140a577800e28b0326'
             '9f1d4f6b3391f6ff0a6761fa4bcfab297a5e1185a3d8ff24a760284b667366e2'
-            '566585873f38a79ec248b916645a2e081abec3c6d4df2c34339cde1f35375cc5')
+            '566585873f38a79ec248b916645a2e081abec3c6d4df2c34339cde1f35375cc5'
+            'a73f704bc6a0fcd6a003f28be23f035eb506ace484ebb82a25826634226338b0')
 _allowed_in="staging"
 
 prepare() {
