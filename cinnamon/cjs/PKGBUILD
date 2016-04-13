@@ -10,7 +10,7 @@ license=(GPL)
 depends=(cairo gobject-introspection-runtime js dbus-glib)
 makedepends=(gnome-common python2 gobject-introspection)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/linuxmint/cjs/archive/${pkgver}.tar.gz")
-sha256sums=('bb65b7238eabb265de256d6de0a183018a4ec28b7d161d439a809875ca6e2927')
+sha256sums=('eceddb46dd7c1da9652c99355158feb8a107e213b5f7240700e1777b28d00a73')
 _allowed_in="staging"
 build() {
   cd $pkgname-$pkgver
