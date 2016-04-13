@@ -25,7 +25,8 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxmint/Cinnamon/archive/
         "set_wheel.patch"
         "default-theme.patch"
         "fix-missing-icons.patch")
-sha256sums=('4ae7ed062e2bfacabdac66002c14666c4709182d45a6f0140a577800e28b0326'
+sha256sums=('33f838cb9c1d4213ebb18d5869949757dda97a6e0745f224d06be75de69caee7'
+            '4ae7ed062e2bfacabdac66002c14666c4709182d45a6f0140a577800e28b0326'
             '9f1d4f6b3391f6ff0a6761fa4bcfab297a5e1185a3d8ff24a760284b667366e2'
             '566585873f38a79ec248b916645a2e081abec3c6d4df2c34339cde1f35375cc5')
 _allowed_in="staging"
@@ -38,14 +39,14 @@ prepare() {
 
   # Set default theme to 'cinnamon'
   patch -Np1 -i ../default-theme.patch
-  
+
   # Fix missing icons with Adwaita theme
   patch -Np1 -i ../fix-missing-icons.patch
-  
+
   # This should be submitted upstream. It has nothing to do with Cinnamon working on Arch.
   # Don't hardcode Nemo
   # patch -Np1 -i ../dont-hardcode-nemo.patch
-  
+
   # Python2 fix
   #sed -i 's:/usr/bin/python :/usr/bin/python2 :' files/usr/bin/cinnamon-menu-editor
   find -type f | xargs sed -i 's@^#!.*python$@#!/usr/bin/python2@'
@@ -80,10 +81,10 @@ build() {
                --disable-static \
                --disable-schemas-compile \
                --enable-compile-warnings=yes
-  
+
   #https://bugzilla.gnome.org/show_bug.cgi?id=656231
   #sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-  
+
   make
 }
 
@@ -91,5 +92,3 @@ package() {
   cd ${srcdir}/Cinnamon*
   make DESTDIR="${pkgdir}" install
 }
- 
-
