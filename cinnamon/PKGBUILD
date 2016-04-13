@@ -1,5 +1,4 @@
 # Maintainer : Risha S Changmai <michaelspeed.michaelcorp@live.com>
-
 pkgname=cinnamon
 pkgver=2.8.8
 pkgrel=2
@@ -118,3 +117,4 @@ build() {
 package() {
   cd ${srcdir}/Cinnamon*
   make DESTDIR="${pkgdir}" install
+}
