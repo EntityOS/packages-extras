@@ -1,0 +1,120 @@
+# Maintainer : Risha S Changmai <michaelspeed.michaelcorp@live.com>
+
+pkgname=cinnamon
+pkgver=2.8.8
+pkgrel=2
+pkgdesc="Linux desktop which provides advanced innovative features and a traditional user experience"
+arch=('x86_64')
+url="https://github.com/linuxmint/Cinnamon"
+license=('GPL2')
+depends=('accountsservice' 'caribou' 'cinnamon-settings-daemon' 'cinnamon-session'
+         'cinnamon-translations' 'cjs' 'clutter-gtk' 'gnome-backgrounds' 'gconf'
+         'gnome-themes-standard' 'gstreamer' 'libgnome-keyring' 'libkeybinder3' 'librsvg'
+         'networkmanager' 'muffin' 'python2-cairo' 'python2-dbus' 'python2-pillow'
+         'python2-pam' 'python2-pexpect' 'python2-pyinotify' 'python2-lxml'
+         'cinnamon-control-center' 'cinnamon-screensaver' 'cinnamon-menus' 'libgnomekbd'
+         'network-manager-applet' 'nemo' 'polkit-gnome')
+makedepends=('gnome-common' 'intltool' 'gtk-doc' 'gobject-introspection')
+optdepends=('blueberry: Bluetooth support'
+            'system-config-printer: printer settings')
+options=('!emptydirs')
+install=${pkgname}.install
+source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxmint/Cinnamon/archive/$pkgver.tar.gz"
+        "set_wheel.patch"
+        "gnome-3.14.patch"
+        "default-theme.patch"
+        "dont-hardcode-nemo.patch")
+sha256sums=('33f838cb9c1d4213ebb18d5869949757dda97a6e0745f224d06be75de69caee7'
+            '74b7e94242bb1718b978b10e59e5f904d4a2887edcc446c846b25ee7d17ad29c'
+            'f01e5dab9db252d061b0e93bf80885b64f1267d2deb40dd0427d0abcbd841b4f'
+            '0b8529d8eaf549e5d9a105502213f68b7b59c78b311d01bfe1bcaf087867bf90'
+            '444776239c5f5c5447d5e7dca04ff33e243e3320884f9abb2247aed124543d85')
+
+prepare() {
+  cd ${srcdir}/Cinnamon*
+
+  # Python2 fix
+  sed -i 's:/usr/bin/python :/usr/bin/python2 :' files/usr/bin/cinnamon-menu-editor
+  find -type f | xargs sed -i 's@^#!.*python$@#!/usr/bin/python2@'
+
+  # Use wheel group instread of sudo (taken from Fedora)
+  patch -Np1 -i ../set_wheel.patch
+
+  # Make Adwaita icon theme selectable in theme settings
+  patch -Np1 -i ../gnome-3.14.patch
+
+  # Set default theme to 'cinnamon'
+  patch -Np1 -i ../default-theme.patch
+
+  # Don't hardcode Nemo
+  patch -Np1 -i ../dont-hardcode-nemo.patch
+
+  # Add polkit agent to required components
+  sed -i 's/RequiredComponents=\(.*\)$/RequiredComponents=\1polkit-gnome-authentication-agent-1;/' \
+    files/usr/share/cinnamon-session/sessions/cinnamon*.session
+
+  # Use pkexec instead of gksu
+  sed -i 's/gksu/pkexec/' files/usr/bin/cinnamon-settings-users
+
+  # Check for the cc-panel path, not for the unneeded binary
+  sed -i 's|/usr/bin/cinnamon-control-center|/usr/lib/cinnamon-control-center-1/panels|' \
+    files/usr/bin/cinnamon-settings
+
+  # Cinnamon has no upstream backgrounds, use GNOME backgrounds instead
+  sed -i 's|/usr/share/cinnamon-background-properties|/usr/share/gnome-background-properties|' \
+    files/usr/share/cinnamon/cinnamon-settings/modules/cs_backgrounds.py
+
+  # Fix selected background color in Cinnamon Settings for Adwaita theme
+  sed -i 's/@selected_bg_color;/@theme_selected_bg_color;/' \
+    files/usr/share/cinnamon/cinnamon-settings/cinnamon-settings.py
+
+  # GNOME Terminal desktop file was renamed in GNOME 3.20
+  sed -i 's/gnome-terminal.desktop/org.gnome.Terminal.desktop/' data/org.cinnamon.gschema.xml.in \
+    files/usr/share/cinnamon/applets/panel-launchers@cinnamon.org/settings-schema.json
+
+  # Replace MintInstall with GNOME Software
+  sed -i 's/mintinstall.desktop/org.gnome.Software.desktop/' data/org.cinnamon.gschema.xml.in
+
+  # Fix missing icons with the Adwaita theme
+  sed -i 's/"gtk-file"/"text-x-preview"/' docs/applets-examples/finder@cinnamon.org/applet.js  src/cinnamon-util.c
+  sed -i "s/SECONDARY, 'ok'/SECONDARY, 'gtk-ok'/
+          s/SECONDARY, 'stop'/SECONDARY, 'process-stop'/" files/usr/share/cinnamon/cinnamon-desktop-editor/cinnamon-desktop-editor.py
+  sed -i "s/'gnome-panel-launcher'/'system-run'/" files/usr/share/cinnamon/cinnamon-desktop-editor/cinnamon-desktop-editor.py
+  sed -i 's/icon_name">gnome-panel-launcher/icon_name">system-run/' files/usr/share/cinnamon/cinnamon-desktop-editor/launcher-editor.ui
+  sed -i 's/"reload"/"view-refresh"/' files/usr/share/cinnamon/cinnamon-settings-users/cinnamon-settings-users.py
+  sed -i 's/"gtk-dialog-question"/"dialog-question"/
+          s/"gtk-directory"/"folder"/' files/usr/share/cinnamon/cinnamon-settings/modules/cs_default.py
+  sed -i 's/"display"/"video-display"/
+          s/"access"/"preferences-desktop-accessibility"/
+          s/"gnome-panel-launcher"/"system-run"/' files/usr/share/cinnamon/cinnamon-settings/modules/cs_keyboard.py
+  sed -i 's/"reload"/"view-refresh"/' files/usr/share/cinnamon/cinnamon-settings/modules/cs_user.py
+  sed -i 's/"stock_calendar"/"x-office-calendar"/' files/usr/share/cinnamon/applets/calendar@cinnamon.org/metadata.json
+  sed -i 's/"keyboard"/"input-keyboard"/' files/usr/share/cinnamon/applets/keyboard@cinnamon.org/metadata.json
+  sed -i 's/"desktop"/"user-desktop"/' files/usr/share/cinnamon/applets/show-desktop@cinnamon.org/metadata.json
+  sed -i 's/"stock_volume"/"audio-volume-high"/' files/usr/share/cinnamon/applets/sound@cinnamon.org/metadata.json
+  sed -i 's/"stock_calendar"/"x-office-calendar"/' files/usr/share/cinnamon/desklets/clock@cinnamon.org/metadata.json
+
+  # Remove broken symlink
+  rm files/etc/xdg/menus/cinnamon-applications-merged
+}
+
+build() {
+  cd ${srcdir}/Cinnamon*
+
+  ./autogen.sh --prefix=/usr \
+               --sysconfdir=/etc \
+               --libexecdir=/usr/lib/cinnamon \
+               --localstatedir=/var \
+               --disable-static \
+               --disable-schemas-compile \
+               --enable-compile-warnings=yes
+
+  #https://bugzilla.gnome.org/show_bug.cgi?id=656231
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+
+  make
+}
+
+package() {
+  cd ${srcdir}/Cinnamon*
+  make DESTDIR="${pkgdir}" install
