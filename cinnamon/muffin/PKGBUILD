@@ -13,7 +13,7 @@ makedepends=('intltool' 'gnome-doc-utils' 'gnome-common' 'gobject-introspection'
 options=('!emptydirs')
 install=$pkgname.install
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxmint/muffin/archive/$pkgver.tar.gz")
-sha256sums=('61239f6dccae6ba2a3cf8b6682b6fe89247910e8978668fc9090d4d676822637')
+sha256sums=('0ae19de74111f222b44f7bf8d159437a83c6ae2e7ce70b327c0296365d69aba4')
 _allowed_in=('staging')
 prepare() {
   cd ${pkgname}-${pkgver}
