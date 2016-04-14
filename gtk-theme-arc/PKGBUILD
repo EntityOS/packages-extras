@@ -1,0 +1,31 @@
+# Maintainer: Risha S Changmai <michaelspeed.michaelcorp@live.com>
+
+pkgname=gtk-theme-arc
+_pkgname=arc-theme
+pkgver=20160331
+pkgrel=1
+pkgdesc="A flat theme with transparent elements for GTK 3, GTK 2 and Gnome-Shell. Latest commit from Github."
+arch=('any')
+url="https://github.com/horst3180/${_pkgname}"
+license=('GPL3')
+groups=('themes')
+depends=('gtk3' 'gtk-engine-murrine' 'gnome-themes-standard')
+makedepends=('git')
+source=(${pkgname}::"git+https://github.com/horst3180/${_pkgname}.git")
+md5sums=('SKIP')
+conflicts=('gtk-theme-arc-git')
+
+pkgver() {
+	cd "${srcdir}/${pkgname}"
+	git fetch --tags
+	printf "%s.r%s" "$(git describe --tags `git rev-list --tags --max-count=1`)" "$(git rev-list --count HEAD)"
+}
+
+build() {
+	cd "${srcdir}/${pkgname}"
+	./autogen.sh --prefix=/usr
+}
+
+package() {
+	make -C "${srcdir}/${pkgname}" DESTDIR="${pkgdir}" install
+}
