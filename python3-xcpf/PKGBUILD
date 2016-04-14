@@ -9,7 +9,7 @@ license=(GPL)
 url="http://xyne.archlinux.ca/projects/python3-xcpf"
 depends=(python3 pyalpm python3-xcgf)
 source=(http://xyne.archlinux.ca/projects/python3-xcpf/src/python3-xcpf-${pkgver}.tar.xz)
-md5sums=('d7b9c51bb6534b6adbd2d57e362431a2')
+md5sums=('98cb09969b9a7f704ec56168708a4b04')
 
 package () {
   cd "$srcdir/$pkgname-$pkgver"
