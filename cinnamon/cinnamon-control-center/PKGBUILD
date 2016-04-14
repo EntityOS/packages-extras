@@ -1,8 +1,4 @@
-# $Id: PKGBUILD 133861 2015-05-20 01:45:04Z faidoc $
-# Maintainer: Alexandre Filgueira <alexfilgueira@cinnarch.com>
-# Based on gnome-control-center:
-# Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
-# Jan de Groot <jgc@archlinux.org>
+#Maintainer: Risha S Changmai <michaelspeed.michaelcorp@live.com>
 
 pkgname=cinnamon-control-center
 pkgver=2.8.1
@@ -18,7 +14,7 @@ install=cinnamon-control-center.install
 license=('GPL')
 options=('!emptydirs')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxmint/cinnamon-control-center/archive/$pkgver.tar.gz")
-sha256sums=('bbc39ac8ddcbc06b6aada1ef271f95f5f0d0fe439bec38b9cd847af420305c49')
+sha256sums=('595076ef89949c31357cd45f41818df1f6b7350a2b810f107e0b88cd9870e273')
 _allowed_in="staging"
 prepare() {
   cd $pkgname-$pkgver
@@ -53,5 +49,3 @@ package() {
   chown 102:0 "$pkgdir/usr/share/polkit-1/rules.d"
   chmod 750 "$pkgdir/usr/share/polkit-1/rules.d"
 }
- 
-
