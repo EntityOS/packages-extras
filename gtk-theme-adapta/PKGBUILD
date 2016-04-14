@@ -27,3 +27,4 @@ build() {
 
 package() {
 	make -C "${srcdir}/${_pkgname}" DESTDIR="${pkgdir}" install
+}
