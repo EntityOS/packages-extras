@@ -13,7 +13,7 @@ options=('!emptydirs')
 install=cinnamon-settings-daemon.install
 url="https://github.com/linuxmint/cinnamon-settings-daemon"
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/linuxmint/cinnamon-settings-daemon/archive/${pkgver}.tar.gz")
-sha256sums=('6d29f1afcbe2724d50066e6417b0a86b8f84abcf2c717732b2ce094be303f0fc')
+sha256sums=('2f7e8764a842d9b4f21c1e6d5321e4101720f1600462b5452d14a061b608c584')
 _allowed_in="staging"
 prepare() {
   cd $pkgname-$pkgver
