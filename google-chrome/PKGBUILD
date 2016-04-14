@@ -20,7 +20,7 @@ source=("google-chrome-${_channel}_${pkgver}_amd64.deb::https://dl.google.com/li
         'google-chrome-stable.sh')
 md5sums=('51f58db79ee3b9937db5526077d2a9e4'
          'SKIP'
-         '99fa93d5e7fb5d622cef0f9621f3ffa3')
+         '703c0584d1a641e350495f4db8960737')
 
 package() {
   msg2 "Extracting the data.tar.xz..."
