@@ -1,0 +1,25 @@
+# Maintainer: Risha S Changmai <michaelspeed.michaelcorp@live.com>
+
+pkgname=powerpill
+pkgver=2016.1
+pkgrel=1
+pkgdesc='Pacman wrapper for parallel and segmented downloads.'
+arch=(any)
+license=(GPL)
+url="http://xyne.archlinux.ca/projects/powerpill"
+depends=(python3 pyalpm 'pm2ml' reflector aria2 python3-xcpf)
+optdepends=('rsync: Rsync download support' 'python3-threaded_servers: internal Pacserve support')
+backup=(etc/powerpill/powerpill.json)
+source=(http://xyne.archlinux.ca/projects/powerpill/src/powerpill-${pkgver}.tar.xz)
+md5sums=(2484ae432f6ef62a925bd15318dee308)
+
+package () {
+  cd "$srcdir/$pkgname-$pkgver"
+  python3 setup.py install --prefix=/usr --root="$pkgdir" --optimize=1
+  install -Dm755 "powerpill" "$pkgdir/usr/bin/powerpill"
+  install -Dm644 "powerpill.json" "$pkgdir/etc/powerpill/powerpill.json"
+  install -Dm644 "man/powerpill.json.1.gz" "$pkgdir/usr/share/man/man1/powerpill.json.1.gz"
+  install -Dm644 "powerpill-bash-completion.sh" "$pkgdir/usr/share/bash-completion/completions/powerpill"
+}
+
+# vim: set ts=2 sw=2 et:
