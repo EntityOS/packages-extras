@@ -11,7 +11,7 @@ depends=(python3 pyalpm python3-xcpf python3-xcgf)
 optdepends=('reflector: Reflector support' 'python3-aur: AUR support' 'aria2: ppl script support.')
 backup=(etc/ppl.conf)
 source=(http://xyne.archlinux.ca/projects/pm2ml/src/pm2ml-${pkgver}.tar.xz)
-md5sums=(887f9f037f67602fcd42e3e6d8c3c7ab)
+md5sums=('2c4700e2854cb5f257f35b306722b006')
 
 package () {
   cd "$srcdir/$pkgname-$pkgver"
