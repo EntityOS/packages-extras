@@ -1,0 +1,27 @@
+# Maintainer: Risha S Changmai <michaelspeed.michaelcorp@live.com>
+
+pkgname=pm2ml
+pkgver=2016.1
+pkgrel=2
+pkgdesc='Generate metalinks for downloading Pacman packages and databases.'
+arch=(any)
+license=(GPL)
+url="http://xyne.archlinux.ca/projects/pm2ml"
+depends=(python3 pyalpm python3-xcpf python3-xcgf)
+optdepends=('reflector: Reflector support' 'python3-aur: AUR support' 'aria2: ppl script support.')
+backup=(etc/ppl.conf)
+source=(http://xyne.archlinux.ca/projects/pm2ml/src/pm2ml-${pkgver}.tar.xz)
+md5sums=(887f9f037f67602fcd42e3e6d8c3c7ab)
+
+package () {
+  cd "$srcdir/$pkgname-$pkgver"
+  python3 setup.py install --prefix=/usr --root="$pkgdir" --optimize=1
+  install -Dm755 "$pkgname" "$pkgdir/usr/bin/$pkgname"
+  for foo_ in ppl pplsyu ppls; do
+    install -Dm755 "$foo_" "$pkgdir/usr/bin/$foo_"
+  done
+  install -Dm644 "ppl.conf" "$pkgdir/etc/ppl.conf"
+}
+
+# vim: set ts=2 sw=2 et:
+# -*- mode: bash;-*-
