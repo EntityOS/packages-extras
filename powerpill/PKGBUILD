@@ -11,7 +11,7 @@ depends=(python3 pyalpm 'pm2ml' reflector aria2 python3-xcpf)
 optdepends=('rsync: Rsync download support' 'python3-threaded_servers: internal Pacserve support')
 backup=(etc/powerpill/powerpill.json)
 source=(http://xyne.archlinux.ca/projects/powerpill/src/powerpill-${pkgver}.tar.xz)
-md5sums=(2484ae432f6ef62a925bd15318dee308)
+md5sums=('120e7ff09456b1a9f25d42b749b22a99')
 
 package () {
   cd "$srcdir/$pkgname-$pkgver"
