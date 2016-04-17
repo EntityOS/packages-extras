@@ -1,8 +1,4 @@
-# Maintainer: Arthur Zamarin <arthurzam@gmail.com>
-# Contributor:	dorphell			<archlinux.org: dorphell>
-# Contributor:	Travis Willard			<archlinux.org: travis>
-# Contributor:	Douglas Soares de Andrade	<archlinux.org: douglas>
-# Contributor:	Jesse Jaara			<gmail.com: jesse.jaara>
+# Maintainer: Risha S Changmai <michaelspeed.michaelcorp@live.com>
 
 pkgname=libpng12
 _realname=libpng
