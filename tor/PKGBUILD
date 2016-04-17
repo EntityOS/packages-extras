@@ -20,7 +20,6 @@ md5sums=('cc19107b57136a68e8c563bf2d35b072'
          'SKIP'
          'c1dd4004c63edaeaa829e01be5413cfc'
          '503cedd9679f9817b2c27916ba989a74')
-validpgpkeys=('B35BF85BF19489D04E28C33C21194EBB165733EA') # Nick Mathewson
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
