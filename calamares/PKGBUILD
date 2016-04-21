@@ -24,8 +24,6 @@ sha256sums=('1775444f286b37994a6970e878db09bf48dfa687c57435eed05c27d3064f34fa'
             '91ae6e3f0d249d57ad37361b8606883da5652eeebdb5819f9bc40b1d4f28746f')
 
 prepare() {
-	cp -a ${srcdir}/calamares-manjaro/* ${srcdir}/calamares-${pkgver}
-	rm -r ${srcdir}/calamares-manjaro
 	cd ${srcdir}/calamares-${pkgver}
 	patch -Np1 -i ${srcdir}/prefer_budgie_before_gnome.patch
 }
