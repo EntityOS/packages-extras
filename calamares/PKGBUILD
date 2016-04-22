@@ -17,19 +17,18 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
-source+=("$pkgname-$pkgver.tar.gz::https://github.com/calamares/calamares/releases/download/v$pkgver/calamares-$pkgver.tar.gz"
+source+=("calamares.tar.gz"
          prefer_budgie_before_gnome.patch::https://github.com/calamares/calamares/commit/8cbefa12e042ac85239b0312d4477cb21c241823.patch)
 
-sha256sums=('1775444f286b37994a6970e878db09bf48dfa687c57435eed05c27d3064f34fa'
-            '91ae6e3f0d249d57ad37361b8606883da5652eeebdb5819f9bc40b1d4f28746f')
+sha256sums=(SKIP)
 
 prepare() {
-	cd ${srcdir}/calamares-${pkgver}
+	cd "$srcdir/$pkgname"
 	patch -Np1 -i ${srcdir}/prefer_budgie_before_gnome.patch
 }
 
 build() {
-	cd ${srcdir}/calamares-${pkgver}
+	cd "$srcdir/$pkgname"
 
 	mkdir -p build
 	cd build
@@ -42,18 +41,14 @@ build() {
 }
 
 package() {
-	cd ${srcdir}/calamares-${pkgver}/build
+	cd "$srcdir/$pkgname/build"
 	make DESTDIR="$pkgdir" install
-	install -Dm644 "../conf/bootloader.conf" "$pkgdir/usr/share/calamares/modules/bootloader.conf"
-	install -Dm644 "../conf/initcpio.conf" "$pkgdir/usr/share/calamares/modules/initcpio.conf"
-	install -Dm644 "../conf/services.conf" "$pkgdir/usr/share/calamares/modules/services.conf"
-	install -Dm644 "../conf/unpackfs.conf" "$pkgdir/usr/share/calamares/modules/unpackfs.conf"
-	install -Dm644 "../conf/settings.conf" "$pkgdir/usr/share/calamares/settings.conf"
-	install -Dm644 "../data/manjaro-icon.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/calamares.svg"
-	install -Dm644 "../data/calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
-	mkdir -p /etc/polkit-1/rules.d/
-	install -Dm644 "../data/49-nopasswd-calamares.rules" "$pkgdir/etc/polkit-1/rules.d/49-nopasswd-calamares.rules"
+	install -Dm644 "../settings.conf" "$pkgdir/usr/share/calamares/settings.conf"
+	install -Dm644 "../calamares.png" "$pkgdir/usr/share/icons/calamares.svg"
+	install -Dm644 "../calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
 	rm -r "$pkgdir/usr/lib/calamares/modules/dummyprocess/"
 	rm -r "$pkgdir/usr/lib/calamares/modules/dummypython/"
 	rm "$pkgdir/usr/share/calamares/modules/dummypython.conf"
+    cd "$srcdir/$pkgname"
+    rm -r build
 }
