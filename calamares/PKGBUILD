@@ -20,7 +20,8 @@ backup=('usr/share/calamares/modules/bootloader.conf'
 source+=("git://github.com/EntityOS/Calamares-entityos.git"
          prefer_budgie_before_gnome.patch::https://github.com/calamares/calamares/commit/8cbefa12e042ac85239b0312d4477cb21c241823.patch)
 
-sha256sums=(SKIP)
+sha256sums=(SKIP
+            '91ae6e3f0d249d57ad37361b8606883da5652eeebdb5819f9bc40b1d4f28746f')
 
 prepare() {
 	cd "$srcdir/$pkgname"
