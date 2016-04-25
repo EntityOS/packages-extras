@@ -1,5 +1,4 @@
-# $Id: PKGBUILD 146927 2015-11-16 15:15:13Z alucryd $
-# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Maintainer: Risha Sringa Changmai <michael.the.don@gmail.com>
 
 pkgname=pantheon-files
 pkgver=0.2.4
