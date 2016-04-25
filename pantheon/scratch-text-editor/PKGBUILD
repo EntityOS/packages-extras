@@ -1,6 +1,4 @@
-# $Id: PKGBUILD 139435 2015-09-07 07:48:38Z alucryd $
-# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
-# Contributor: Ner0 <darkelfdarkelf666@yahoo.co.uk>
+# Maintainer: Risha Sringa Changmai <michael.the.don@gmail.com>
 
 pkgname=scratch-text-editor
 pkgver=2.2.1
